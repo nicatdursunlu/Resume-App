@@ -1,5 +1,7 @@
 package com.nicatdursunlu.bean;
 
+import java.sql.Date;
+
 public class User {
 
     private int id;
@@ -7,17 +9,46 @@ public class User {
     private String surname;
     private String email;
     private String phone;
+    private Date birthDate;
+    private Nationality nationality;
+    private Nationality birthplace;
 
     public User() {
-
     }
 
-    public User(int id, String name, String surname, String email, String phone) {
+    public User(int id, String name, String surname, String email, String phone, Date birthDate, Nationality nationality, Nationality birthplace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
+        this.birthDate = birthDate;
+        this.nationality = nationality;
+        this.birthplace = birthplace;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Nationality getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(Nationality nationality) {
+        this.nationality = nationality;
+    }
+
+    public Nationality getBirthplace() {
+        return birthplace;
+    }
+
+    public void setBirthplace(Nationality birthplace) {
+        this.birthplace = birthplace;
     }
 
     public int getId() {
@@ -68,6 +99,9 @@ public class User {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", nationality=" + nationality +
+                ", birthplace=" + birthplace +
                 '}';
     }
 }

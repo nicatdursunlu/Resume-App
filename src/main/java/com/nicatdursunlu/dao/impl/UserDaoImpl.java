@@ -1,34 +1,52 @@
 package com.nicatdursunlu.dao.impl;
 
+import com.nicatdursunlu.bean.Nationality;
 import com.nicatdursunlu.bean.User;
 import com.nicatdursunlu.dao.AbstractDao;
 import com.nicatdursunlu.dao.UserDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl extends AbstractDao implements UserDao {
+
+    private User getUser(ResultSet resultSet) throws Exception {
+        int id = resultSet.getInt("id");
+        String name = resultSet.getString("name");
+        String surname = resultSet.getString("surname");
+        String email = resultSet.getString("email");
+        String phone = resultSet.getString("phone");
+        int nationalityId = resultSet.getInt("nationality_id");
+        int birthplaceId = resultSet.getInt("birthplace_id");
+        Date birthDate = resultSet.getDate("birthdate");
+        String birthplaceStr = resultSet.getString("birthplace");
+        String nationalityStr = resultSet.getString("nationality");
+
+        Nationality nationality = new Nationality(nationalityId, nationalityStr, null);
+        Nationality birthplace = new Nationality(birthplaceId, birthplaceStr, null);
+
+        return new User(id, name, surname, email, phone, birthDate, nationality, birthplace);
+    }
 
     @Override
     public List<User> getAll() {
         List<User> result = new ArrayList<>();
         try (Connection connection = connection()) {
             Statement statement = connection.createStatement();
-            statement.execute("select * from user");
+            statement.execute("SELECT " +
+                    "u.*," +
+                    "n.country_name AS nationality," +
+                    "b.NAME AS birthplace " +
+                    "FROM " +
+                    "USER u " +
+                    "LEFT JOIN nationality n ON u.nationality_id = n.id " +
+                    "LEFT JOIN nationality b ON u.birthplace_id = b.id ");
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-
-                result.add(new User(id, name, surname, email, phone));
+               User user = getUser(resultSet);
+               result.add(user);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -41,17 +59,18 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         User result = new User();
         try (Connection connection = connection()) {
             Statement statement = connection.createStatement();
-            statement.execute("select * from user where id=" + userId);
+            statement.execute("SELECT " +
+                    "u.*," +
+                    "n.country_name AS nationality," +
+                    "b.NAME AS birthplace " +
+                    "FROM " +
+                    "USER u " +
+                    "LEFT JOIN nationality n ON u.nationality_id = n.id " +
+                    "LEFT JOIN nationality b ON u.birthplace_id = b.id where u.id= " + userId);
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-
-                result = new User(id, name, surname, email, phone);
+               result = getUser(resultSet);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

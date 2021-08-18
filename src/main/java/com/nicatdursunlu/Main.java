@@ -27,7 +27,6 @@ public class Main {
 //        user.setName("Azay");
 //        userDao.updateUser(user);
 
-        User user = new User(0, "Sarkhan", "Rasullu", "srkhan.rasullu@gmail.com", "+9945552512");
-        userDao.addUser(user);
+        System.out.println(userDao.getAll());
     }
 }
