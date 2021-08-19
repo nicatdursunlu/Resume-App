@@ -1,10 +1,7 @@
 package com.nicatdursunlu;
 
-import com.nicatdursunlu.bean.User;
 import com.nicatdursunlu.dao.UserDao;
 import com.nicatdursunlu.dao.impl.UserDaoImpl;
-
-import java.util.List;
 
 public class Main {
 

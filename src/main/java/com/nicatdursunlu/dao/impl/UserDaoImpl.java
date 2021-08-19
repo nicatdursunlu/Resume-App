@@ -1,6 +1,6 @@
 package com.nicatdursunlu.dao.impl;
 
-import com.nicatdursunlu.bean.Nationality;
+import com.nicatdursunlu.bean.Country;
 import com.nicatdursunlu.bean.User;
 import com.nicatdursunlu.dao.AbstractDao;
 import com.nicatdursunlu.dao.UserDao;
@@ -23,10 +23,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         String birthplaceStr = resultSet.getString("birthplace");
         String nationalityStr = resultSet.getString("nationality");
 
-        Nationality nationality = new Nationality(nationalityId, nationalityStr, null);
-        Nationality birthplace = new Nationality(birthplaceId, birthplaceStr, null);
+        Country country = new Country(nationalityId, null, nationalityStr);
+        Country birthplace = new Country(birthplaceId, birthplaceStr, null);
 
-        return new User(id, name, surname, email, phone, birthDate, nationality, birthplace);
+        return new User(id, name, surname, email, phone, birthDate, country, birthplace);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
             Statement statement = connection.createStatement();
             statement.execute("SELECT " +
                     "u.*," +
-                    "n.country_name AS nationality," +
-                    "b.NAME AS birthplace " +
+                    "n.nationality," +
+                    "b.name AS birthplace " +
                     "FROM " +
                     "USER u " +
-                    "LEFT JOIN nationality n ON u.nationality_id = n.id " +
-                    "LEFT JOIN nationality b ON u.birthplace_id = b.id ");
+                    "LEFT JOIN country n ON u.nationality_id = n.id " +
+                    "LEFT JOIN country b ON u.birthplace_id = b.id ");
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next()) {
@@ -59,14 +59,14 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         User result = new User();
         try (Connection connection = connection()) {
             Statement statement = connection.createStatement();
-            statement.execute("SELECT " +
+            statement.execute( "SELECT " +
                     "u.*," +
-                    "n.country_name AS nationality," +
-                    "b.NAME AS birthplace " +
+                    "n.nationality," +
+                    "b.name AS birthplace " +
                     "FROM " +
                     "USER u " +
-                    "LEFT JOIN nationality n ON u.nationality_id = n.id " +
-                    "LEFT JOIN nationality b ON u.birthplace_id = b.id where u.id= " + userId);
+                    "LEFT JOIN country n ON u.nationality_id = n.id " +
+                    "LEFT JOIN country b ON u.birthplace_id = b.id where u.id= " + userId);
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next()) {

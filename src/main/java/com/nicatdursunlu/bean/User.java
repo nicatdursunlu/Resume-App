@@ -1,6 +1,7 @@
 package com.nicatdursunlu.bean;
 
 import java.sql.Date;
+import java.util.List;
 
 public class User {
 
@@ -10,20 +11,21 @@ public class User {
     private String email;
     private String phone;
     private Date birthDate;
-    private Nationality nationality;
-    private Nationality birthplace;
+    private Country country;
+    private Country birthplace;
+    private List<UserSkill> skills;
 
     public User() {
     }
 
-    public User(int id, String name, String surname, String email, String phone, Date birthDate, Nationality nationality, Nationality birthplace) {
+    public User(int id, String name, String surname, String email, String phone, Date birthDate, Country country, Country birthplace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
         this.birthDate = birthDate;
-        this.nationality = nationality;
+        this.country = country;
         this.birthplace = birthplace;
     }
 
@@ -35,19 +37,19 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Nationality getNationality() {
-        return nationality;
+    public Country getNationality() {
+        return country;
     }
 
-    public void setNationality(Nationality nationality) {
-        this.nationality = nationality;
+    public void setNationality(Country country) {
+        this.country = country;
     }
 
-    public Nationality getBirthplace() {
+    public Country getBirthplace() {
         return birthplace;
     }
 
-    public void setBirthplace(Nationality birthplace) {
+    public void setBirthplace(Country birthplace) {
         this.birthplace = birthplace;
     }
 
@@ -91,6 +93,22 @@ public class User {
         this.phone = phone;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public List<UserSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<UserSkill> skills) {
+        this.skills = skills;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -100,7 +118,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", birthDate=" + birthDate +
-                ", nationality=" + nationality +
+                ", nationality=" + country +
                 ", birthplace=" + birthplace +
                 '}';
     }

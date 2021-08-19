@@ -1,19 +1,18 @@
 package com.nicatdursunlu.bean;
 
-public class Nationality {
+public class Skill {
 
     private int id;
     private String name;
-    private String countyName;
 
-    public Nationality() {
+
+    public Skill() {
 
     }
 
-    public Nationality(int id, String name, String countyName) {
+    public Skill(int id, String name) {
         this.id = id;
         this.name = name;
-        this.countyName = countyName;
     }
 
     public int getId() {
@@ -32,20 +31,11 @@ public class Nationality {
         this.name = name;
     }
 
-    public String getCountyName() {
-        return countyName;
-    }
-
-    public void setCountyName(String countyName) {
-        this.countyName = countyName;
-    }
-
     @Override
     public String toString() {
-        return "Nationality{" +
+        return "Skill{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", countyName='" + countyName + '\'' +
                 '}';
     }
 }
