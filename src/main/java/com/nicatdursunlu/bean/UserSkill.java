@@ -49,4 +49,14 @@ public class UserSkill {
     public void setPower(int power) {
         this.power = power;
     }
+
+    @Override
+    public String toString() {
+        return "UserSkill{" +
+                "id=" + id +
+                ", user=" + user +
+                ", skill=" + skill +
+                ", power=" + power +
+                '}';
+    }
 }

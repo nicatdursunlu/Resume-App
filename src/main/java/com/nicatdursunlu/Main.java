@@ -24,6 +24,7 @@ public class Main {
 //        user.setName("Azay");
 //        userDao.updateUser(user);
 
-        System.out.println(userDao.getAll());
+//        System.out.println(userDao.getAll());
+        System.out.println(userDao.getAllSkillsByUserId(5));
     }
 }
