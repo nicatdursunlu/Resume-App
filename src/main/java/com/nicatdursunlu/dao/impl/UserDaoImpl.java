@@ -126,7 +126,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     private UserSkill getUserSkill(ResultSet resultSet) throws Exception {
-        int userId = resultSet.getInt("user_id");
+        int userId = resultSet.getInt("id");
         int skillId = resultSet.getInt("skill_id");
         String skillName = resultSet.getString("skill_name");
         int power = resultSet.getInt("power");
@@ -140,7 +140,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
         try (Connection connection = connection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT" +
+                    "SELECT " +
                             "u.*," +
                             "us.skill_id," +
                             "s.`name` AS skill_name," +
@@ -150,9 +150,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
                             "LEFT JOIN USER u ON us.user_id = u.id " +
                             "LEFT JOIN skill s ON us.skill_id = s.id " +
                             "WHERE " +
-                            "us.user_id =?"
+                            "us.user_id = ?"
             );
             statement.setInt(1, userId);
+            statement.execute();
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next()) {
