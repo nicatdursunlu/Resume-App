@@ -1,4 +1,4 @@
-package com.nicatdursunlu.bean;
+package com.nicatdursunlu.entity;
 
 public class UserSkill {
 

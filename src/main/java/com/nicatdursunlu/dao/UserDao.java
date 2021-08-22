@@ -1,7 +1,7 @@
 package com.nicatdursunlu.dao;
 
-import com.nicatdursunlu.bean.User;
-import com.nicatdursunlu.bean.UserSkill;
+import com.nicatdursunlu.entity.User;
+import com.nicatdursunlu.entity.UserSkill;
 
 import java.util.List;
 
@@ -17,5 +17,4 @@ public interface UserDao {
 
     public boolean removeUser(int id);
 
-    public List<UserSkill> getAllSkillsByUserId(int userId);
 }
